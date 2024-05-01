@@ -8,7 +8,7 @@ Pre-requisites:
 
 1- Ensure ElasticDump is installed. Install it via npm:
 
-  sudo npm install elasticdump -g
+  **sudo npm install elasticdump -g**
 
   Obtain the ElasticSearch credentials (username and password) and the GCS bucket details.
 
