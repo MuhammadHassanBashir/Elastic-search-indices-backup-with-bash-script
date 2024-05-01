@@ -6,18 +6,18 @@ We were tasked with backing up an ElasticSearch database and sending it to a clo
 
 Pre-requisites:
 
-Ensure ElasticDump is installed. Install it via npm:
+1- Ensure ElasticDump is installed. Install it via npm:
 
   sudo npm install elasticdump -g
 
   Obtain the ElasticSearch credentials (username and password) and the GCS bucket details.
 
-Script:
+2- Script:
 
 For script refer script.sh and PDF document.
 
 
-Testing:
+3- Testing:
 
 We tested this script in our test environment by first port forwarding the cluster's
 
@@ -27,10 +27,10 @@ ElasticSearch service:
 
 Then, we set the ElasticSearch username and password and used localhost:9200 as the host and port in the script. We triggered the script, which successfully retrieved the indices data and mappings and sent them to the GCS bucket.Kubernetes CronJob Deployment
 
-To automate the backup process, we deployed the script as a Kubernetes CronJob. 
+4- To automate the backup process, we deployed the script as a Kubernetes CronJob. 
 
-For image refer to Dockerfile and Yaml file for kubernetes cronjob configuration.
+5- For image refer to Dockerfile and Yaml file for kubernetes cronjob configuration.
 
-Service Account if your kubernetes pod want to communicate with gcp services. For this you need service account. You need to bind service account of kubernetes and gcp with “WORKLOAD IDENTITY” steps are given in document:
+6- Service Account if your kubernetes pod want to communicate with gcp services. For this you need service account. You need to bind service account of kubernetes and gcp with “WORKLOAD IDENTITY” steps are given in document:
 
-For kubernetes cronjob refer docoment.
+
