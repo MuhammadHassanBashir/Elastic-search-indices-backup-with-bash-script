@@ -1,0 +1,55 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: cronjob-es-db-backup
+  namespace: default
+spec:
+  schedule: "28 00 * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          serviceAccountName: es-db-backup
+          containers:
+          - name: es-db-backup-script
+            image: gcr.io/disearch/es_db_backup:latest
+            env:
+            - name: GCS_BUCKET_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: my-config
+                  key: GCS_BUCKET_NAME
+            envFrom:       
+            - secretRef:
+                name: elastic-credentials
+          restartPolicy: OnFailure
+
+---
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: my-config
+  namespace: default
+data:
+  GCS_BUCKET_NAME: "worldlearning-test_k8_es_db_backup/es_backups"
+
+---
+
+apiVersion: v1
+kind: Secret
+metadata:
+  name: elastic-credentials
+  namespace: default
+type: Opaque
+data:
+  username: ZWxhc3RpYwo=
+  password: N1VvZDMxaTJOUHc3RDh0dno2M1ZDNTBECg==
+
+---
+
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: es-db-backup
+  namespace: default
